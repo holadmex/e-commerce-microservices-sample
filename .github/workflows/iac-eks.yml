@@ -74,3 +74,4 @@ jobs:
         #id: getconfig
         #if: steps.apple.outcome == 'success'
         #run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name=gitops-eks
+        #
