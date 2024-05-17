@@ -27,7 +27,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "terra-actions"
+    bucket = "terraf-test"
     key    = "terraform.tfstate"
     region = "us-east-1"
   }
