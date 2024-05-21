@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - terraform/**
+      - terraform/*
 
 env:
   # Credentials for deployment to aws
