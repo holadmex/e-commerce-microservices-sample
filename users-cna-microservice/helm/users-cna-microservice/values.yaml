@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: holadmex/users
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  #3 Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
