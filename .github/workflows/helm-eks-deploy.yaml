@@ -102,12 +102,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'cart-cna-microservice/**'
-      - 'product-cna-microservice/**'
-      - 'search-cna-microservice/**'
-      - 'store-ui/**'
-      - 'users-cna-microservice/**'
 
 env:
   AWS_REGION: us-east-1
@@ -136,11 +130,11 @@ jobs:
 
       - name: Build and Push Docker Image
         env:
-          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_SHA: ${SHORT_SHA:0:7}
         run: |
           cd ./${{ matrix.service }}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ github.sha }} .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ github.sha }}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${SHORT_SHA:0:7} .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${SHORT_SHA:0:7}
 
   helm-deploy:
     name: Helm Deploy to EKS
