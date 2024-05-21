@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: holadmex/store-ui
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  #h Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
