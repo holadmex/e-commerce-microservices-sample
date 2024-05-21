@@ -23,8 +23,15 @@ jobs:
           distribution: 'adopt'
           java-version: '18'
 
-      - name: Build JAR
-        working-directory: cart-cna-microservice
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run Gradle Build
         run: |
           chmod +x gradlew
           ./gradlew clean build --no-daemon
