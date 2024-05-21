@@ -91,5 +91,5 @@ jobs:
         run: |
           helm upgrade --install ${{ matrix.dir }} ./helm/${{ matrix.dir }} \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.dir }} \
-            --set image.tag=$${{ github.sha.substr(0, 7) }} \
+            --set image.tag=${{ github.sha.substr(0, 7) }} \
             --namespace ${{ matrix.dir }}
