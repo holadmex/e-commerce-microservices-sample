@@ -262,7 +262,7 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
 
-       - name: Create Namespace
+      - name: Create Namespace
         run: |
           kubectl create namespace ${{ matrix.service }} || echo "Namespace ${{ matrix.service }} already exists"    
 
