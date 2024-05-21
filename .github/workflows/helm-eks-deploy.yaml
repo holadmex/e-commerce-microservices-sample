@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [cart-cna-microservice, product-cna-microservice, search-cna-microservice, store-ui, users-cna-microservice]
+        service: [cart-cna-microservice, products-cna-microservice, search-cna-microservice, store-ui, users-cna-microservice]
       max-parallel: 5
       fail-fast: false
     steps:
@@ -133,8 +133,8 @@ jobs:
           GITHUB_SHA: ${SHORT_SHA:0:7}
         run: |
           cd ./${{ matrix.service }}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${SHORT_SHA:0:7} .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${SHORT_SHA:0:7}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${GITHUB_SHA::7} .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${GITHUB_SHA::7}
 
   helm-deploy:
     name: Helm Deploy to EKS
@@ -142,7 +142,7 @@ jobs:
     needs: [docker-build-and-push]
     strategy:
       matrix:
-        service: [cart-cna-microservice, product-cna-microservice, search-cna-microservice, store-ui, users-cna-microservice]
+        service: [cart-cna-microservice, products-cna-microservice, search-cna-microservice, store-ui, users-cna-microservice]
       max-parallel: 5
       fail-fast: false
     steps:
@@ -163,5 +163,5 @@ jobs:
         run: |
           helm upgrade --install ${{ matrix.service }} ./helm/${{ matrix.service }} \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }} \
-            --set image.tag=${SHORT_SHA:0:7} \
+            --set image.tag=${GITHUB_SHA::7} \
             --namespace ${{ matrix.service }}
