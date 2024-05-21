@@ -2,6 +2,8 @@ name: CI/CD for Microservices
 
 on:
   push:
+    branches:
+      - master
     paths:
       - 'cart-cna-microservice/**'
       - 'product-cna-microservice/**'
